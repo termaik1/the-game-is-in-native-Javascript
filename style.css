@@ -1,0 +1,27 @@
+.main {
+  margin: 30px;
+  border: 1px solid black;
+}
+.main tr td {
+  width: 70px;
+  height: 70px;
+  background: #ece7ca;
+}
+.main tr:nth-child(odd) td:nth-child(even) {
+  background: #000;
+}
+.main tr:nth-child(even) td:nth-child(odd) {
+  background: #000;
+}
+
+.checker {
+  border-radius: 45%;
+  width: 55px;
+  height: 55px;
+}
+.white {
+  background: rgb(247, 244, 244);
+}
+.black {
+  background: rgb(185, 56, 56);
+}
