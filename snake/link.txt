@@ -4,3 +4,5 @@
 2) https://ac-illust.com/en/clip-art/134399/2-color-check---color-difference-attachment---gold-red
   snake
 3) https://www.iconfinder.com/icons/1320015/cute_ekans_go_monster_pokemon_snake_icon
+  keyCode
+4) http://arduino.on.kg/codekeys
