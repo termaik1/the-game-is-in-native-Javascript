@@ -35,27 +35,43 @@ let food = {
   y: Math.floor(Math.random() * 15) * box
 };
 
-let scopeGame = {
-  up: { stepUp: 7, direction1Up: true },
-  down: { stepDown: 7, directionDown: true },
-  left: { stepLeft: 9, directionLeft: true },
-  right: { stepRight: 9, directionRight: true }
-};
-
 {
   //-------------------------------------------------
 }
 
 function direction(event) {
   let keyCode = event.keyCode;
-  if ((keyCode == 37 || keyCode == 65) && (key != "right")) {
+  if ((keyCode == 37 || keyCode == 65) && key != "right") {
     key = "left";
-  } else if ((keyCode == 38 || keyCode == 87) && (key != "down")) {
+  } else if ((keyCode == 38 || keyCode == 87) && key != "down") {
     key = "up";
-  } else if ((keyCode == 39 || keyCode == 68)&& (key != "left")) {
+  } else if ((keyCode == 39 || keyCode == 68) && key != "left") {
     key = "right";
-  } else if ((keyCode == 40 || keyCode == 83) && (key != "up")) {
+  } else if ((keyCode == 40 || keyCode == 83) && key != "up") {
     key = "down";
+  }
+}
+
+let scopeMap = (...props) => {
+
+  let snakes;
+  let coordX = new Map([[snakes, props[0]]]);
+  let coordY = new Map([[snakes, props[1]]]);
+  let snakeX = coordX.get(snakes);
+  let snakeY = coordY.get(snakes);
+  if (snakeX < 0 || snakeX > box * 16 || snakeY < 0 || snakeY > box * 14) {
+    clearInterval(game);
+    alert("Snake crashed against the wall. The game score = " + score);
+  }
+};
+
+let snakeAte = (head, snake) =>{
+  let {x , y} = head;
+  for (let i = 0; i < snake.length; i++) {
+    if (x == snake[i].x && y == snake[i].y) {
+      clearInterval(game);
+      alert("The snake ate itself. The game score = " + score);
+    }
   }
 }
 
@@ -78,13 +94,7 @@ let gameSnake = () => {
   } else {
     snake.pop();
   }
-  if (snakeX < 0 || snakeX > box * 16 || snakeY < 0 || snakeY > box * 14) {
-    clearInterval(game);
-    alert("Snake crashed against the wall. The game score = " + score);
-  }
-  console.log("box " + box);
-  console.log("snakeX " + snakeX);
-  console.log("snakeY " + snakeY);
+  scopeMap(snakeX, snakeY);
   if (key == "left") {
     snakeX -= box;
   }
@@ -97,21 +107,12 @@ let gameSnake = () => {
   if (key == "down") {
     snakeY += box;
   }
-  let newCoordinatesHead = {
+  let head = {
     x: snakeX,
     y: snakeY
   };
-
-  for (let i = 0; i < snake.length; i++) {
-    if (
-      newCoordinatesHead.x == snake[i].x &&
-      newCoordinatesHead.y == snake[i].y
-    ) {
-      clearInterval(game);
-      alert("The snake ate itself. The game score = " + score);
-    }
-  }
-  snake.unshift(newCoordinatesHead);
+  snakeAte(head, snake);
+  snake.unshift(head);
 };
 
 let game = setInterval(gameSnake, 100);
