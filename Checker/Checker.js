@@ -3,9 +3,9 @@ const CheckerMap = () => {
   table.className += " main";
 
   for (let i = 0; i < 8; i++) {
-    let row = table.insertRow(0);
+    let row = table.insertRow(0); // создание строки
     for (let j = 0; j < 8; j++) {
-      let cell = row.insertCell(0);
+      let cell = row.insertCell(0); // создание клетки
 
       if (((i == 2 || i == 0) && j % 2 == 1) || (i == 1 && j % 2 == 0)) {
         let CheckerWhite = document.createElement("div");
