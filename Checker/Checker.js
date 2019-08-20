@@ -6,6 +6,7 @@ const CheckerMap = () => {
     let row = table.insertRow(0); // создание строки
     for (let j = 0; j < 8; j++) {
       let cell = row.insertCell(0); // создание клетки
+      cell.setAttribute("onclick", "gameLogic(" + i + "," + j + ");"); //устанавливается функция gameLogic() которая принимает координаты
 
       if (((i == 2 || i == 0) && j % 2 == 1) || (i == 1 && j % 2 == 0)) {
         let CheckerWhite = document.createElement("div");
@@ -24,3 +25,35 @@ const CheckerMap = () => {
 };
 
 window.addEventListener("load", CheckerMap);
+
+var Data = {
+  // объект с данными игры
+  Row: null,
+  Cell: null
+};
+
+let gameLogic = (row, cell) => {
+  // основнаяя логика игры
+  Data.Row = row;
+  Data.Cell = cell;
+  validationCourse(Data.Row, Data.Cell);
+};
+
+let validationCourse = (row, cell) => {
+  // проверка правильности хода т.е. ходить на белые квадратики нельзя
+  if (row % 2 == 0) {
+    if (cell % 2 == 0) {
+      Data.Cell = null;
+      alert("not the right move !");
+      return;
+    }
+  } else {
+    if (cell % 2 == 1) {
+      Data.Cell = null;
+      alert("not the right move!");
+      return;
+    }
+  }
+};
+
+// остальное я не успел сделать ^_^
